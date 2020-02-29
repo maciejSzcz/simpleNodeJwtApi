@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
-const User = require('./model/User');
+const postRoute = require('./routes/posts')
 
 dotenv.config()
 
@@ -26,5 +26,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(express.json());
 
 app.use('/api/user', authRoute)
+app.use('/api/posts', postRoute)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
