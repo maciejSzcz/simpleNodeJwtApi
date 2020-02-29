@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/User');
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation.js');
 
 router.post('/register', async (req, res) => {
@@ -46,6 +46,6 @@ router.post('/login', async (req, res) => {
     // create jwt 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
     res.header('jwt-token', token).send(token)
-})
+});
 
 module.exports = router;

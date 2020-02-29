@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const verify = require('./verifyToken')
+const verify = require('./verifyToken');
 
 router.get('/', verify, (req, res) => {
     res.json({
@@ -8,8 +8,8 @@ router.get('/', verify, (req, res) => {
             title: 'first post',
             description: 'random data for post'
         }
-    })
+    });
 
-})
+});
 
 module.exports = router;
