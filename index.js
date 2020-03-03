@@ -3,10 +3,9 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts')
+const postRoute = require('./routes/posts');
 
-dotenv.config()
-
+dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 mongoose.connect(`${process.env.DB_CONNECT}`, 
@@ -16,16 +15,12 @@ mongoose.connect(`${process.env.DB_CONNECT}`,
     }, () => console.log('DB Connected!')
 );
 
-var db = mongoose.connection;
-
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-
 
 // Middlewares
 app.use(express.json());
+app.use('/api/user', authRoute);
+app.use('/api/posts', postRoute);
 
-app.use('/api/user', authRoute)
-app.use('/api/posts', postRoute)
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
