@@ -24,13 +24,33 @@ router.post('/', verify, async (req, res) => {
         data: req.body.data
     })
     try {
-        const savedData = await sentData.save().then(() => {
-            console.log("wyslano")
-        });
+        const savedData = await sentData.save()
         console.log(savedData);
         res.send('succesful');
     } catch (error) {
         res.status(400).send(err)
+    }
+})
+
+router.put('/', verify, async (req, res) => {
+    const { error } = dataValidation(req);
+    if (error) return res.status(400).send(error.details[0].message)
+
+    
+
+    const data = new Data({
+        header: req.body.header,
+        data: req.body.data
+    })
+
+    try {
+        const found = await Data.findOneAndUpdate({ header: req.body.header }, {data}).then(() => {
+            console.log("zupdateowano")
+        });
+        console.log(found);
+        res.send('succesful');
+    } catch (error) {
+        res.status(400).send(error)
     }
 })
 
